@@ -15,8 +15,10 @@ def get_recent_instances():
     for res in reservations:
         for i in res.instances:
             name = 'Name' in i.tags and i.tags['Name'] or i.dns_name
-            ip = i.ip_address
-            instances.append({'ip': ip,
+            desc = i.ip_address
+            desc += u' [' + i.instance_type + ']'
+            instances.append({'desc': desc,
+                              'ip': i.ip_address,
                               'name': name})
 
     return instances
@@ -42,7 +44,7 @@ def main(wf):
     for instance in instances:
         wf.add_item(arg=instance['ip'],
                     icon=ICON_NETWORK,
-                    subtitle=instance['ip'],
+                    subtitle=instance['desc'],
                     title=instance['name'],
                     valid=True)
 
