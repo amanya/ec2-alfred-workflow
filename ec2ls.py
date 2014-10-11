@@ -1,13 +1,17 @@
 #!/bin/env python
 
+import argparse
 import sys
+
 import boto.ec2
 from workflow import Workflow, ICON_NETWORK, ICON_WARNING
 
 REGION = 'eu-west-1'
 
-def get_recent_instances():
-    conn = boto.ec2.connect_to_region(REGION)
+def get_recent_instances(aws_access_key_id, aws_secret_access_key, region):
+    conn = boto.ec2.connect_to_region(region,
+                                      aws_access_key_id=aws_access_key_id,
+                                      aws_secret_access_key=aws_secret_access_key)
     reservations = conn.get_all_reservations()
 
     instances = []
@@ -25,13 +29,61 @@ def get_recent_instances():
 
 
 def main(wf):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--set-access-key-id', dest='aws_access_key_id', nargs='?', default=None)
+    parser.add_argument('--set-secret-access-key', dest='aws_secret_access_key', nargs='?', default=None)
+    parser.add_argument('--set-region', dest='region', nargs='?', default=None)
+    parser.add_argument('query', nargs='?', default=None)
+    args = parser.parse_args(wf.args)
 
-    if len(wf.args):
-        query = wf.args[0]
-    else:
-        query = None
+    if args.aws_access_key_id:
+        wf.settings['aws_access_key_id'] = args.aws_access_key_id
+        return 0
 
-    instances = wf.cached_data('instances', get_recent_instances, max_age=10)
+    if args.aws_secret_access_key:
+        wf.settings['aws_secret_access_key'] = args.aws_secret_access_key
+        return 0
+
+    if args.region:
+        wf.settings['region'] = args.region
+        return 0
+
+    aws_access_key_id = wf.settings.get('aws_access_key_id', None)
+
+    if not aws_access_key_id:
+        wf.add_item('No aws_access_key_id set.',
+                    'Please use awssetaccesskey to set your access key.',
+                    valid = False,
+                    icon=ICON_WARNING)
+        wf.send_feedback()
+        return 0
+
+    aws_secret_access_key = wf.settings.get('aws_secret_access_key', None)
+
+    if not aws_secret_access_key:
+        wf.add_item('No aws_secret_access_key set.',
+                    'Please use awssetsecretkey to set your secret key.',
+                    valid = False,
+                    icon=ICON_WARNING)
+        wf.send_feedback()
+        return 0
+
+    region = wf.settings.get('region', None)
+
+    if not region:
+        wf.add_item('No region set.',
+                    'Please use awssetregion to set your region.',
+                    valid = False,
+                    icon=ICON_WARNING)
+        wf.send_feedback()
+        return 0
+
+    query = args.query
+
+    def wrapper():
+        return get_recent_instances(aws_access_key_id, aws_secret_access_key, region)
+
+    instances = wf.cached_data('instances', wrapper, max_age=10)
 
     if query:
         instances = wf.filter(query, instances, key=search_key_for_instance)

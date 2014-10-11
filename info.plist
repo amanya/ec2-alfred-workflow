@@ -27,6 +27,72 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>5D9A1AA1-CFF1-408D-A5AD-CA0C4724E536</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C3451068-8AF0-4859-998C-826D48A53F66</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>67521C3A-7AED-4DAC-BF5F-2DA3EA6BAFBC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>C3451068-8AF0-4859-998C-826D48A53F66</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ABCC9E40-3066-43B0-9903-E8011704CD9E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>C84F3363-5142-4E9C-866A-11F9BD2CA328</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>FC2BD519-D3AE-4F6A-8B3B-CAAFF5F85EC8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CC92B117-B09B-41B8-A1A9-0DC127834E90</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>FC2BD519-D3AE-4F6A-8B3B-CAAFF5F85EC8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>88636B4C-9760-47BE-8AC4-BD661DB744A7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>amanya</string>
@@ -38,6 +104,21 @@
 	<string>EC2</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>545F9B5D-1D26-49A2-BCBA-B66F46374C67</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -68,15 +149,46 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Your AWS access key was saved</string>
+				<key>title</key>
+				<string>Saved AWS access key</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>545F9B5D-1D26-49A2-BCBA-B66F46374C67</string>
+			<string>88636B4C-9760-47BE-8AC4-BD661DB744A7</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>awssetaccesskey</string>
+				<key>subtext</key>
+				<string>Enter your AWS access key and hit ENTER</string>
+				<key>text</key>
+				<string>Set your AWS access key</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C84F3363-5142-4E9C-866A-11F9BD2CA328</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -107,6 +219,149 @@ end alfred_script</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Your AWS secret access key was saved</string>
+				<key>title</key>
+				<string>Saved AWS secret access key</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>ABCC9E40-3066-43B0-9903-E8011704CD9E</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>awssetsecretkey</string>
+				<key>subtext</key>
+				<string>Enter your AWS secret key and hit ENTER</string>
+				<key>text</key>
+				<string>Set your AWS secret key</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>5D9A1AA1-CFF1-408D-A5AD-CA0C4724E536</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>script</key>
+				<string>python ec2ls.py --set-access-key-id "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>FC2BD519-D3AE-4F6A-8B3B-CAAFF5F85EC8</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>awssetregion</string>
+				<key>subtext</key>
+				<string>Enter your AWS region and hit ENTER</string>
+				<key>text</key>
+				<string>Set your AWS region</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>67521C3A-7AED-4DAC-BF5F-2DA3EA6BAFBC</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Your AWS region was saved</string>
+				<key>title</key>
+				<string>Saved AWS region</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>CC92B117-B09B-41B8-A1A9-0DC127834E90</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>script</key>
+				<string>python ec2ls.py --set-secret-access-key "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C3451068-8AF0-4859-998C-826D48A53F66</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>script</key>
+				<string>python ec2ls.py --set-region "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -122,10 +377,55 @@ end alfred_script</string>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>5D9A1AA1-CFF1-408D-A5AD-CA0C4724E536</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>67521C3A-7AED-4DAC-BF5F-2DA3EA6BAFBC</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
+		</dict>
 		<key>6EB980FB-5BFC-4690-A7BF-95895A7B6424</key>
 		<dict>
 			<key>ypos</key>
-			<real>220</real>
+			<real>200</real>
+		</dict>
+		<key>88636B4C-9760-47BE-8AC4-BD661DB744A7</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>ABCC9E40-3066-43B0-9903-E8011704CD9E</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>C3451068-8AF0-4859-998C-826D48A53F66</key>
+		<dict>
+			<key>ypos</key>
+			<real>440</real>
+		</dict>
+		<key>C84F3363-5142-4E9C-866A-11F9BD2CA328</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>CC92B117-B09B-41B8-A1A9-0DC127834E90</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
+		</dict>
+		<key>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</key>
+		<dict>
+			<key>ypos</key>
+			<real>560</real>
+		</dict>
+		<key>FC2BD519-D3AE-4F6A-8B3B-CAAFF5F85EC8</key>
+		<dict>
+			<key>ypos</key>
+			<real>320</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
