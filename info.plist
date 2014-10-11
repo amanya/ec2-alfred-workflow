@@ -18,6 +18,14 @@
 				<key>modifiersubtext</key>
 				<string></string>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>6EB980FB-5BFC-4690-A7BF-95895A7B6424</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
 		</array>
 	</dict>
 	<key>createdby</key>
@@ -61,7 +69,7 @@
 			<key>config</key>
 			<dict>
 				<key>autopaste</key>
-				<true/>
+				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
 			</dict>
@@ -69,6 +77,33 @@
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
 			<string>545F9B5D-1D26-49A2-BCBA-B66F46374C67</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+  set myCommand to "ssh ec2-user@" &amp; q
+  tell application "iTerm"
+    activate
+    set myterm to (current terminal)
+    tell myterm
+      set mysession to (launch session "server")
+      tell mysession
+        write text myCommand
+      end tell
+    end tell
+  end tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>6EB980FB-5BFC-4690-A7BF-95895A7B6424</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -86,6 +121,11 @@
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>6EB980FB-5BFC-4690-A7BF-95895A7B6424</key>
+		<dict>
+			<key>ypos</key>
+			<real>220</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
