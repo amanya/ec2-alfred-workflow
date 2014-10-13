@@ -6,8 +6,6 @@ import sys
 import boto.ec2
 from workflow import Workflow, ICON_NETWORK, ICON_WARNING
 
-REGION = 'eu-west-1'
-
 def get_recent_instances(aws_access_key_id, aws_secret_access_key, region):
     conn = boto.ec2.connect_to_region(region,
                                       aws_access_key_id=aws_access_key_id,
