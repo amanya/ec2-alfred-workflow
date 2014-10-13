@@ -18,9 +18,10 @@ def get_recent_instances(aws_access_key_id, aws_secret_access_key, region):
 
     for res in reservations:
         for i in res.instances:
+            if i.state != 'running':
+                continue
             name = 'Name' in i.tags and i.tags['Name'] or i.dns_name
-            desc = i.ip_address
-            desc += u' [' + i.instance_type + ']'
+            desc = i.ip_address + u' [' + i.instance_type + ']'
             instances.append({'desc': desc,
                               'ip': i.ip_address,
                               'name': name})
