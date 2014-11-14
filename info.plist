@@ -27,6 +27,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>1EE8355C-323D-4EA9-833C-F8984055E701</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D7A8AD62-7E12-4730-8A7E-82DD1A69398E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>5D9A1AA1-CFF1-408D-A5AD-CA0C4724E536</key>
 		<array>
 			<dict>
@@ -76,6 +87,17 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>CC92B117-B09B-41B8-A1A9-0DC127834E90</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>EE8F7C2D-75FB-4726-9126-B8756265B1CA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1EE8355C-323D-4EA9-833C-F8984055E701</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -348,6 +370,52 @@ end alfred_script</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Your default AWS account was saved</string>
+				<key>title</key>
+				<string>Saved default AWS account</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>D7A8AD62-7E12-4730-8A7E-82DD1A69398E</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>awsaccount</string>
+				<key>subtext</key>
+				<string>Enter your AWS account name and hit ENTER</string>
+				<key>text</key>
+				<string>Set the default AWS account</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>EE8F7C2D-75FB-4726-9126-B8756265B1CA</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>escaping</key>
 				<integer>116</integer>
 				<key>script</key>
@@ -362,6 +430,23 @@ end alfred_script</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>script</key>
+				<string>python ec2ls.py --set-active-account "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>1EE8355C-323D-4EA9-833C-F8984055E701</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -371,6 +456,11 @@ end alfred_script</string>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>1EE8355C-323D-4EA9-833C-F8984055E701</key>
+		<dict>
+			<key>ypos</key>
+			<real>680</real>
 		</dict>
 		<key>545F9B5D-1D26-49A2-BCBA-B66F46374C67</key>
 		<dict>
@@ -417,10 +507,20 @@ end alfred_script</string>
 			<key>ypos</key>
 			<real>370</real>
 		</dict>
+		<key>D7A8AD62-7E12-4730-8A7E-82DD1A69398E</key>
+		<dict>
+			<key>ypos</key>
+			<real>490</real>
+		</dict>
 		<key>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</key>
 		<dict>
 			<key>ypos</key>
 			<real>560</real>
+		</dict>
+		<key>EE8F7C2D-75FB-4726-9126-B8756265B1CA</key>
+		<dict>
+			<key>ypos</key>
+			<real>490</real>
 		</dict>
 		<key>FC2BD519-D3AE-4F6A-8B3B-CAAFF5F85EC8</key>
 		<dict>
