@@ -18,7 +18,10 @@ def get_recent_instances(region, profile_name):
             if i.state != 'running':
                 continue
             name = 'Name' in i.tags and i.tags['Name'] or i.dns_name
-            desc = i.ip_address + u' [' + i.instance_type + ']'
+            if i.ip_address:
+                desc = i.ip_address + u' [' + i.instance_type + ']'
+            else:
+                desc = u' [' + i.instance_type + ']'
             instances.append({'desc': desc,
                               'ip': i.ip_address,
                               'name': name})
