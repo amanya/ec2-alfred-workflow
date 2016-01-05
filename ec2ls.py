@@ -2,9 +2,26 @@
 
 import argparse
 import sys
+import os
 
+import ConfigParser
 import boto.ec2
 from workflow import Workflow, ICON_NETWORK, ICON_WARNING
+
+AWS_CONFIG_FILE = "{}/.aws/config".format(os.environ.get('HOME'))
+
+
+def get_profiles():
+    config = ConfigParser.ConfigParser()
+    config.readfp(open(AWS_CONFIG_FILE))
+    sections = []
+    for section in config.sections():
+        if section.find('profile') == 0:
+            section = section[8:]  # remove 'profile' from profile name
+        profile = {'name': section}
+        sections.append(profile)
+    return sections
+
 
 def get_recent_instances(region, profile_name):
     conn = boto.ec2.connect_to_region(region,
@@ -31,14 +48,22 @@ def get_recent_instances(region, profile_name):
 
 def main(wf):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--profile-name', dest='profile_name', nargs='?', default=None)
     parser.add_argument('--set-region', dest='region', nargs='?', default=None)
+    parser.add_argument(
+        '--list-profiles',
+        dest='list_profiles',
+        action="store_true")
+    parser.add_argument(
+        '--set-profile',
+        dest='profile_name',
+        nargs='?',
+        default=None)
     parser.add_argument('query', nargs='?', default=None)
     args = parser.parse_args(wf.args)
 
     account = wf.settings.get('active_account', 'default')
 
-    if not account in wf.settings:
+    if account not in wf.settings:
         wf.settings['account'] = {}
 
     if args.profile_name:
@@ -51,12 +76,21 @@ def main(wf):
         wf.settings.save()
         return 0
 
+    if args.list_profiles:
+        list_profiles(wf, args.query)
+        return 0
+
+    if args.query:
+        query_instances(wf, args.query)
+        return 0
+
+
+def query_instances(wf, query):
+    account = wf.settings.get('active_account', 'default')
     aws_access_key_id = wf.settings[account].get('aws_access_key_id', None)
     profile_name = wf.settings[account].get('profile_name', 'default')
 
     region = wf.settings[account].get('region', 'eu-west-1')
-
-    query = args.query
 
     def wrapper():
         return get_recent_instances(region, profile_name)
@@ -80,14 +114,41 @@ def main(wf):
 
     wf.send_feedback()
 
+
+def list_profiles(wf, query):
+    profiles = get_profiles()
+
+    if query:
+        profiles = wf.filter(query, profiles, key=search_key_for_profile)
+
+    if not profiles:
+        wf.add_item('No profile found', icon=ICON_WARNING)
+        wf.send_feedback()
+        return 0
+
+    for profile in profiles:
+        wf.add_item(arg=profile['name'],
+                    icon=ICON_NETWORK,
+                    title=profile['name'],
+                    valid=True)
+
+    wf.send_feedback()
+
+
 def search_key_for_instance(instance):
     elements = []
     elements.append(instance['name'])
 
     return u' '.join(elements)
 
+
+def search_key_for_profile(profile):
+    elements = []
+    elements.append(profile['name'])
+
+    return u' '.join(elements)
+
+
 if __name__ == u'__main__':
     wf = Workflow()
     sys.exit(wf.run(main))
-
-
