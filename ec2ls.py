@@ -9,6 +9,7 @@ import boto.ec2
 from workflow import Workflow, ICON_NETWORK, ICON_WARNING
 
 AWS_CONFIG_FILE = "{}/.aws/config".format(os.environ.get('HOME'))
+LOGGER = None
 
 
 def get_profiles():
@@ -80,9 +81,7 @@ def main(wf):
         list_profiles(wf, args.query)
         return 0
 
-    if args.query:
-        query_instances(wf, args.query)
-        return 0
+    query_instances(wf, args.query)
 
 
 def query_instances(wf, query):
@@ -106,10 +105,12 @@ def query_instances(wf, query):
         return 0
 
     for instance in instances:
-        wf.add_item(arg=instance['ip'],
+        wf.add_item(arg="{}|{}".format(profile_name, instance['ip']),
+                    uid=instance['ip'],
                     icon=ICON_NETWORK,
                     subtitle=instance['desc'],
                     title=instance['name'],
+                    copytext=instance['ip'],
                     valid=True)
 
     wf.send_feedback()
@@ -149,6 +150,7 @@ def search_key_for_profile(profile):
     return u' '.join(elements)
 
 
-if __name__ == u'__main__':
+if __name__ == '__main__':
     wf = Workflow()
+    LOGGER = wf.logger
     sys.exit(wf.run(main))
