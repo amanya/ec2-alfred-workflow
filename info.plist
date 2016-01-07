@@ -12,26 +12,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>545F9B5D-1D26-49A2-BCBA-B66F46374C67</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
 				<string>6EB980FB-5BFC-4690-A7BF-95895A7B6424</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
-		<key>1EE8355C-323D-4EA9-833C-F8984055E701</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>D7A8AD62-7E12-4730-8A7E-82DD1A69398E</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -49,22 +30,33 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</key>
+		<key>B85E5F6D-CCD5-49ED-B34D-F099D805F720</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>CC92B117-B09B-41B8-A1A9-0DC127834E90</string>
+				<string>C74D3903-D154-4C93-886D-45F1AEC34E86</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 			</dict>
 		</array>
-		<key>EE8F7C2D-75FB-4726-9126-B8756265B1CA</key>
+		<key>C74D3903-D154-4C93-886D-45F1AEC34E86</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>1EE8355C-323D-4EA9-833C-F8984055E701</string>
+				<string>D7A8AD62-7E12-4730-8A7E-82DD1A69398E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CC92B117-B09B-41B8-A1A9-0DC127834E90</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -85,15 +77,32 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+  set oldDelimiters to AppleScript's text item delimiters
+  set AppleScript's text item delimiters to "|"
+  set theArguments to every text item of q
+  set AppleScript's text item delimiters to oldDelimiters
+
+  set myCommand to "ssh -i ~/.ssh/" &amp; item 1 of theArguments &amp; " ec2-user@" &amp; item 2 of theArguments
+  tell application "iTerm"
+    activate
+    set myterm to (current terminal)
+    tell myterm
+      set mysession to (launch session "server")
+      tell mysession
+        write text myCommand
+      end tell
+    end tell
+  end tell
+end alfred_script</string>
+				<key>cachescript</key>
 				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
-			<string>545F9B5D-1D26-49A2-BCBA-B66F46374C67</string>
+			<string>6EB980FB-5BFC-4690-A7BF-95895A7B6424</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -107,7 +116,7 @@
 				<key>keyword</key>
 				<string>ec2ls</string>
 				<key>queuedelaycustom</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
 				<false/>
 				<key>queuedelaymode</key>
@@ -156,48 +165,19 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)
-  set myCommand to "ssh ec2-user@" &amp; q
-  tell application "iTerm"
-    activate
-    set myterm to (current terminal)
-    tell myterm
-      set mysession to (launch session "server")
-      tell mysession
-        write text myCommand
-      end tell
-    end tell
-  end tell
-end alfred_script</string>
-				<key>cachescript</key>
+				<key>concurrently</key>
 				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
-			<key>uid</key>
-			<string>6EB980FB-5BFC-4690-A7BF-95895A7B6424</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>script</key>
+				<string>python ec2ls.py --set-region "{query}"</string>
+				<key>type</key>
 				<integer>0</integer>
-				<key>keyword</key>
-				<string>awsprofile</string>
-				<key>subtext</key>
-				<string>Enter your AWS profile name and hit ENTER</string>
-				<key>text</key>
-				<string>Set the default AWS profile</string>
-				<key>withspace</key>
-				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>EE8F7C2D-75FB-4726-9126-B8756265B1CA</string>
+			<string>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -229,25 +209,6 @@ end alfred_script</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>116</integer>
-				<key>script</key>
-				<string>python ec2ls.py --set-region "{query}"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -273,19 +234,52 @@ end alfred_script</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>keyword</key>
+				<string>awsprofile</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>script</key>
+				<string>python ec2ls.py --list-profiles "{query}"</string>
+				<key>title</key>
+				<string>Select AWS profile</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>B85E5F6D-CCD5-49ED-B34D-F099D805F720</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
 				<integer>116</integer>
 				<key>script</key>
-				<string>python ec2ls.py --profile-name "{query}"</string>
+				<string>python ec2ls.py --set-profile "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>1EE8355C-323D-4EA9-833C-F8984055E701</string>
+			<string>C74D3903-D154-4C93-886D-45F1AEC34E86</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -299,16 +293,6 @@ end alfred_script</string>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
-		<key>1EE8355C-323D-4EA9-833C-F8984055E701</key>
-		<dict>
-			<key>ypos</key>
-			<real>440</real>
-		</dict>
-		<key>545F9B5D-1D26-49A2-BCBA-B66F46374C67</key>
-		<dict>
-			<key>ypos</key>
-			<real>10</real>
-		</dict>
 		<key>67521C3A-7AED-4DAC-BF5F-2DA3EA6BAFBC</key>
 		<dict>
 			<key>ypos</key>
@@ -317,27 +301,32 @@ end alfred_script</string>
 		<key>6EB980FB-5BFC-4690-A7BF-95895A7B6424</key>
 		<dict>
 			<key>ypos</key>
-			<real>200</real>
+			<real>10</real>
+		</dict>
+		<key>B85E5F6D-CCD5-49ED-B34D-F099D805F720</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>C74D3903-D154-4C93-886D-45F1AEC34E86</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
 		</dict>
 		<key>CC92B117-B09B-41B8-A1A9-0DC127834E90</key>
 		<dict>
 			<key>ypos</key>
-			<real>320</real>
+			<real>130</real>
 		</dict>
 		<key>D7A8AD62-7E12-4730-8A7E-82DD1A69398E</key>
 		<dict>
 			<key>ypos</key>
-			<real>440</real>
+			<real>250</real>
 		</dict>
 		<key>DB24A4F6-4CC3-4BB8-8A85-3324B04A2F85</key>
 		<dict>
 			<key>ypos</key>
-			<real>320</real>
-		</dict>
-		<key>EE8F7C2D-75FB-4726-9126-B8756265B1CA</key>
-		<dict>
-			<key>ypos</key>
-			<real>250</real>
+			<real>130</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
