@@ -1,6 +1,6 @@
 # ec2-alfred-workflow
 
-An Alfred workflow to query for EC2 instances and get its ip. Type `ec2ls` on
+An [Alfred](https://www.alfredapp.com) workflow to query for EC2 instances and get its ip. Type `ec2ls` on
 Alfred to get a list of instances. Type some query text to filter the instances
 by tag name.
 
