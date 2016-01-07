@@ -9,7 +9,6 @@ import boto.ec2
 from workflow import Workflow, ICON_NETWORK, ICON_WARNING
 
 AWS_CONFIG_FILE = "{}/.aws/config".format(os.environ.get('HOME'))
-LOGGER = None
 
 
 def get_profiles():
@@ -151,6 +150,5 @@ def search_key_for_profile(profile):
 
 
 if __name__ == '__main__':
-    wf = Workflow()
-    LOGGER = wf.logger
+    wf = Workflow(libraries=['./lib'])
     sys.exit(wf.run(main))
