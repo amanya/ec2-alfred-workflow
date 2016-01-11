@@ -19,6 +19,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>260C1DFC-BD42-42AE-9532-28878230B4E6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7DB3F23B-BA76-4ECF-8274-DF55890A77C7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>67521C3A-7AED-4DAC-BF5F-2DA3EA6BAFBC</key>
 		<array>
 			<dict>
@@ -63,6 +74,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>E11F6AC0-B636-4915-A5B3-6CE3A15E9B58</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>260C1DFC-BD42-42AE-9532-28878230B4E6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>amanya</string>
@@ -84,7 +106,7 @@
   set theArguments to every text item of q
   set AppleScript's text item delimiters to oldDelimiters
 
-  set myCommand to "ssh -i ~/.ssh/" &amp; item 1 of theArguments &amp; " ec2-user@" &amp; item 2 of theArguments
+  set myCommand to "ssh -i ~/.ssh/" &amp; item 1 of theArguments &amp; " " &amp; item 2 of theArguments &amp; "@" &amp; item 3 of theArguments
   tell application "iTerm"
     activate
     set myterm to (current terminal)
@@ -283,6 +305,83 @@ end alfred_script</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>keyword</key>
+				<string>awsuser</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>script</key>
+				<string>python ec2ls.py --list-users</string>
+				<key>title</key>
+				<string>Select AWS user</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>E11F6AC0-B636-4915-A5B3-6CE3A15E9B58</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>116</integer>
+				<key>script</key>
+				<string>python ec2ls.py --set-user "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>260C1DFC-BD42-42AE-9532-28878230B4E6</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Your default AWS user was saved</string>
+				<key>title</key>
+				<string>Saved default AWS user</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>7DB3F23B-BA76-4ECF-8274-DF55890A77C7</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -293,6 +392,11 @@ end alfred_script</string>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>260C1DFC-BD42-42AE-9532-28878230B4E6</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
+		</dict>
 		<key>67521C3A-7AED-4DAC-BF5F-2DA3EA6BAFBC</key>
 		<dict>
 			<key>ypos</key>
@@ -302,6 +406,11 @@ end alfred_script</string>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>7DB3F23B-BA76-4ECF-8274-DF55890A77C7</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
 		</dict>
 		<key>B85E5F6D-CCD5-49ED-B34D-F099D805F720</key>
 		<dict>
@@ -327,6 +436,11 @@ end alfred_script</string>
 		<dict>
 			<key>ypos</key>
 			<real>130</real>
+		</dict>
+		<key>E11F6AC0-B636-4915-A5B3-6CE3A15E9B58</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

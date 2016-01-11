@@ -58,6 +58,15 @@ def main(wf):
         dest='profile_name',
         nargs='?',
         default=None)
+    parser.add_argument(
+        '--list-users',
+        dest='list_users',
+        action="store_true")
+    parser.add_argument(
+        '--set-user',
+        dest='user_name',
+        nargs='?',
+        default=None)
     parser.add_argument('query', nargs='?', default=None)
     args = parser.parse_args(wf.args)
 
@@ -71,6 +80,11 @@ def main(wf):
         wf.settings.save()
         return 0
 
+    if args.user_name:
+        wf.settings.setdefault(account, {})['user_name'] = args.user_name
+        wf.settings.save()
+        return 0
+
     if args.region:
         wf.settings.setdefault(account, {})['region'] = args.region
         wf.settings.save()
@@ -80,6 +94,10 @@ def main(wf):
         list_profiles(wf, args.query)
         return 0
 
+    if args.list_users:
+        list_users(wf)
+        return 0
+
     query_instances(wf, args.query)
 
 
@@ -87,6 +105,7 @@ def query_instances(wf, query):
     account = wf.settings.get('active_account', 'default')
     aws_access_key_id = wf.settings[account].get('aws_access_key_id', None)
     profile_name = wf.settings[account].get('profile_name', 'default')
+    user_name = wf.settings[account].get('user_name', 'ec2-user')
 
     region = wf.settings[account].get('region', 'eu-west-1')
 
@@ -104,7 +123,7 @@ def query_instances(wf, query):
         return 0
 
     for instance in instances:
-        wf.add_item(arg="{}|{}".format(profile_name, instance['ip']),
+        wf.add_item(arg="{}|{}|{}".format(profile_name, user_name, instance['ip']),
                     uid=instance['ip'],
                     icon=ICON_NETWORK,
                     subtitle=instance['desc'],
@@ -113,7 +132,6 @@ def query_instances(wf, query):
                     valid=True)
 
     wf.send_feedback()
-
 
 def list_profiles(wf, query):
     profiles = get_profiles()
@@ -130,6 +148,18 @@ def list_profiles(wf, query):
         wf.add_item(arg=profile['name'],
                     icon=ICON_NETWORK,
                     title=profile['name'],
+                    valid=True)
+
+    wf.send_feedback()
+
+
+def list_users(wf):
+    users = ['ec2-user', 'ubuntu']
+
+    for user in users:
+        wf.add_item(arg=user,
+                    icon=ICON_NETWORK,
+                    title=user,
                     valid=True)
 
     wf.send_feedback()
